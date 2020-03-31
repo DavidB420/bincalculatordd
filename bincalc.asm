@@ -21,8 +21,8 @@ call print_string
 mov ah,00
 int 16h
 cmp al,'1'
-je start
-ret
+je resetprog
+retf
 
 intro db 'Welcome to Binary Calculator! Copyright (C) 2019 David Badiei', 0x0D, 0x0A, 'Licensed under BSD License 2.0', 0x0D,0x0A,'Please choose an option:', 0x0D, 0x0A, '1.Convert integer to binary', 0x0D, 0x0A, '2. Convert binary to integer', 0x0D, 0x0A, 0
 ques1 db 'Enter integer number: ',0
@@ -263,3 +263,12 @@ jmp doneprog
 addup:
 add ax,bx
 jmp continueloop
+
+resetprog:
+mov cx,17
+cleanloop:
+mov si,answerBin
+add si,cx
+mov byte [si],0
+loop cleanloop
+jmp start
